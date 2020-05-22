@@ -5,9 +5,11 @@ pipelineConfig:
       build:
         preSteps:
         - command: echo "ENV_TYPE: PREVIEW" >> env-vars.yaml
+        preSteps:
         - command: mv env-vars.yaml ./charts/go-demo-6/env-vars.yaml
     release:
       build:
         preSteps:
         - command: echo "ENV_TYPE: STAGING" >> env-vars.yaml
+        preSteps:
         - command: mv env-vars.yaml ./charts/go-demo-6/env-vars.yaml
