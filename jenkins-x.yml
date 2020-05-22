@@ -4,12 +4,8 @@ pipelineConfig:
     pullRequest:
       build:
         preSteps:
-        - command: echo "ENV_TYPE: PREVIEW" >> env-vars.yaml
-        preSteps:
-        - command: mv env-vars.yaml ./charts/go-demo-6/env-vars.yaml
+        - command: 'echo "ENV: PREVIEW" >> env-vars.yaml && mv env-vars.yaml ./charts/go-demo-6/env-vars.yaml'
     release:
       build:
         preSteps:
-        - command: echo "ENV_TYPE: STAGING" >> env-vars.yaml
-        preSteps:
-        - command: mv env-vars.yaml ./charts/go-demo-6/env-vars.yaml
+        - command: 'echo "ENV: STAGING" >> env-vars.yaml && mv env-vars.yaml ./charts/go-demo-6/env-vars.yaml'
