@@ -10,7 +10,7 @@ PKGS := $(shell go list ./... | grep -v /vendor | grep -v generated)
 BUILDFLAGS := ''
 CGO_ENABLED = 0
 VENDOR_DIR=vendor
-VERSION := 1.0.0
+VERSION := 2.0.0
 
 all: build
 
