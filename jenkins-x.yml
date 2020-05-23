@@ -43,9 +43,10 @@ pipelineConfig:
             command: CGO_ENABLED=0 GOOS=${GOOS} GOARCH=amd64 go build -o bin/go-demo-6_${GOOS} main.go
 
     release:
-      build:
-        preSteps:
-        - command: 'printenv && echo "ENV: STAGING" >> env-vars.yaml && mv env-vars.yaml'
+      # build:
+      #   preSteps:
+      #   - command: 'printenv && echo "ENV: STAGING" >> env-vars.yaml && mv env-vars.yaml'
+      #     name: printenv
       promote:
         steps:
         - name: rollout
