@@ -1,3 +1,4 @@
+VERSION := 2.0.0
 SHELL := /bin/bash
 GO := GO15VENDOREXPERIMENT=1 go
 NAME := go-demo-6
@@ -10,7 +11,6 @@ PKGS := $(shell go list ./... | grep -v /vendor | grep -v generated)
 BUILDFLAGS := ''
 CGO_ENABLED = 0
 VENDOR_DIR=vendor
-VERSION := 2.0.0
 
 all: build
 
@@ -61,11 +61,20 @@ lint: vendor | $(PKGS) $(GOLINT) # ❷
 	    test -z "$$($(GOLINT) $$pkg | tee /dev/stderr)" || ret=1 ; \
 	done ; exit $$ret
 
-unittest:
-	CGO_ENABLED=$(CGO_ENABLED) $(GO) \
-	test --run UnitTest -v
+unittest: 
+	CGO_ENABLED=$(CGO_ENABLED) $(GO) test --run UnitTest \
+	-v -coverprofile=coverage.txt -covermode=atomic
 
-functest:
+
+functest: 
 	CGO_ENABLED=$(CGO_ENABLED) $(GO) \
-	test -test.v --run FunctionalTest --cover
+	test -test.v --run FunctionalTest \
+	-coverprofile=coverage.txt -covermode=atomic
+
+
+integtest: 
+	DURATION=1 \
+	CGO_ENABLED=$(CGO_ENABLED) $(GO) \
+	test -test.v --run ProductionTest \
+	-coverprofile=coverage.txt -covermode=atomic
 
