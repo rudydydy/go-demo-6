@@ -8,7 +8,8 @@ pipelineConfig:
         - command: make unittest
       promote:
         steps:
-        - command: ADDRESS=`jx get preview --current 2>&1` make functest
+        # - command: ADDRESS=`jx get preview --current 2>&1` make functest
+        - command: ADDRESS=http://not-exist-domain-qweasdzxc.com --current 2>&1` make functest
     release:
       build:
         preSteps:
