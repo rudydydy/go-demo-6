@@ -33,3 +33,11 @@ pipelineConfig:
 
     overrides:
     - pipeline: release
+      stage: build
+    release:
+      promote:
+        steps:
+        - name: rollout
+          command: |
+            sleep 30
+            kubectl -n jx-staging rollout status deployment jx-go-demo-6 --timeout 3m
