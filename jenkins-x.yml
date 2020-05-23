@@ -12,4 +12,4 @@ pipelineConfig:
     release:
       build:
         preSteps:
-        - command: 'printenv && echo "ENV: STAGING" >> env-vars.yaml && mv env-vars.yaml
+        - command: 'printenv && echo "ENV: STAGING" >> env-vars.yaml && mv env-vars.yaml'
