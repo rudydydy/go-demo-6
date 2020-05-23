@@ -1,5 +1,8 @@
 buildPack: go
 pipelineConfig:
+  env:
+  - name: CODECOV_TOKEN
+    value: 3292adf3-b8b1-49f0-a02b-e03762d9ff60
   pipelines:
     pullRequest:
       build:
@@ -7,6 +10,10 @@ pipelineConfig:
         - command: 'echo "ENV: PREVIEW" >> env-vars.yaml && mv env-vars.yaml ./charts/go-demo-6/env-vars.yaml'
         - command: make unittest
           name: unit-tests
+        - name: code-coverage
+          command: codecov.sh
+          agent:
+            image: vfarcic/codecov
       promote:
         steps:
           - name: rollout
