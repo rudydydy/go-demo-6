@@ -28,7 +28,6 @@ spec:
         - name: {{ $pkey }}
           value: {{ quote $pval }}
 {{- end }}
-        env:
         - name: DB
           value: {{ template "fullname" . }}-db
         - name: ENV_TYPE
