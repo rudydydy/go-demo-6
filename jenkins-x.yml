@@ -26,15 +26,26 @@ pipelineConfig:
               kubectl -n $NS rollout status deployment preview-preview --timeout 3m
           - name: functional-tests
             command: ADDRESS=`jx get preview --current 2>&1` make functest
-    release:
-      build:
-        preSteps:
-        - command: 'printenv && echo "ENV: STAGING" >> env-vars.yaml && mv env-vars.yaml'
 
     overrides:
     - pipeline: release
       stage: build
+      name: make-build
+      steps:
+      - loop:
+          variable: GOOS
+          values:
+          - darwin
+          - linux
+          - windows
+          steps:
+          - name: build
+            command: CGO_ENABLED=0 GOOS=${GOOS} GOARCH=amd64 go build -o bin/go-demo-6_${GOOS} main.go
+
     release:
+      build:
+        preSteps:
+        - command: 'printenv && echo "ENV: STAGING" >> env-vars.yaml && mv env-vars.yaml'
       promote:
         steps:
         - name: rollout
