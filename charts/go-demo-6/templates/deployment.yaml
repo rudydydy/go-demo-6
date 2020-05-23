@@ -31,6 +31,12 @@ spec:
         env:
         - name: DB
           value: {{ template "fullname" . }}-db
+        env:
+        - name: ENV_TYPE
+          valueFrom:
+            configMapKeyRef:
+              name: go-demo-6
+              key: ENV_TYPE 
         ports:
         - containerPort: {{ .Values.service.internalPort }}
         livenessProbe:
