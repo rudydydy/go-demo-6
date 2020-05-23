@@ -5,7 +5,9 @@ pipelineConfig:
       build:
         preSteps:
         - command: 'echo "ENV: PREVIEW" >> env-vars.yaml && mv env-vars.yaml ./charts/go-demo-6/env-vars.yaml'
+        - command: make unittest
     release:
       build:
         preSteps:
-        - command: 'printenv && echo "ENV: STAGING" >> env-vars.yaml && mv env-vars.yaml ./charts/go-demo-6/env-vars.yaml'
+        - command: 'printenv && echo "ENV: STAGING" >> env-vars.yaml && mv env-vars.yaml
+            ./charts/go-demo-6/env-vars.yaml'
